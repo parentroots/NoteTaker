@@ -11,6 +11,9 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
   final Color hintTextColor;
+  final double hintSize;
+  final double fontSize;
+  final int maxLine;
 
   const AppTextField({
     super.key,
@@ -20,20 +23,20 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
-    this.validator, this.hintTextColor=AppColors.blackColor,
+    this.validator, this.hintTextColor=AppColors.blackColor,  this.hintSize=14,  this.fontSize=16, this.maxLine=1,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: 1,
+      maxLines: maxLine,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
       validator: validator,
       style: TextStyle(
         color: AppColors.blackColor,
-        fontSize: 20.sp,
+        fontSize: fontSize,
         fontWeight: FontWeight.w400
       ),
       decoration: InputDecoration(
@@ -42,7 +45,7 @@ class AppTextField extends StatelessWidget {
         filled: true,
         hintStyle: TextStyle(
           color:hintTextColor,
-          fontSize: 20.sp,
+          fontSize: hintSize,
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
         prefixIcon: prefixIcon,

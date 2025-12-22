@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:note_taker/componant/text/app_text.dart';
+import 'package:note_taker/componant/text_field/text_field.dart';
 import 'package:note_taker/ui/screens/home/controller/home_screen_controller.dart';
 import 'package:note_taker/ui/screens/widget/home_app_bar/home_app_bar.dart';
-import 'package:note_taker/utils/constants/app_colors.dart';
-import 'package:note_taker/utils/constants/app_images.dart';
+import '../widget/note_category_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,149 +20,230 @@ class _HomeScreenState extends State<HomeScreen> {
     return GetBuilder<HomeScreenController>(
       builder: (controller) {
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Color(0xff8671F6),
+            onPressed: () {
+              buildNoteDialog(controller);
+            },
+            child: Icon(Icons.add, color: Colors.white, size: 24),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+
+          bottomNavigationBar: Container(
+            height: 50.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadiusGeometry.only(
+                topRight: Radius.circular(20.r),
+                topLeft: Radius.circular(20.r),
+              ),
+              color: Color(0xffFFFFFF),
+            ),
+          ),
+
           appBar: HomeAppBar(),
           backgroundColor: Color(0xffebe9fa),
-          body: Column(
-            children: [
-              buildBannerSection(controller),
-
-              SizedBox(height: 30.h,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          body: Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(15.h),
-                    height: 150.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(AppImages.files),
-                      ),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          
-                          SizedBox(
-                            height:24.h,
-                              width: 24.w,
-                              child:Icon(Icons.person)),
-                          AppText(text: 'Personal')
-                        
-                        ],
-                      ),
-                    ),
-                  )
-                  ,
+                  buildBannerSection(controller),
 
+                  SizedBox(height: 30.h),
 
-                  Container(
-                    height: 150.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(image:AssetImage(AppImages.files))
-                    ),
+                  NoteCategory(
+                    title1: 'Personal',
+                    title2: 'Academic',
+                    onTapItem1: () {
+                      print('Personal clicked');
+                    },
+                    onTapItem2: () {
+                      print('Academic clicked');
+                    },
+                    noteCount1: '10',
+                    noteCount2: '50',
+                  ),
+
+                  SizedBox(height: 20),
+
+                  NoteCategory(
+                    title1: 'Work',
+                    title2: 'Others',
+                    onTapItem1: () {
+                      print('Work clicked');
+                    },
+                    onTapItem2: () {
+                      print('Others clicked');
+                    },
+                    noteCount1: '39',
+                    noteCount2: '15',
                   ),
                 ],
-              )
-
-
-
-            ],
+              ),
+            ),
           ),
         );
       },
     );
   }
 
+  Future<dynamic> buildNoteDialog(HomeScreenController controller) {
+    return Get.dialog(
+      AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: AppText(text: 'App Note', fontSize: 18.sp),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 45.h,
+              child: AppTextField(
+                fontSize: 14.sp,
+                hintSize: 14.sp,
+
+                controller: controller.noteTitleTEController,
+                hintText: 'Enter  Note title',
+                hintTextColor: Colors.grey,
+              ),
+            ),
+
+            SizedBox(height: 18.h),
+
+            AppTextField(
+              maxLine: 3,
+              hintSize: 14.sp,
+              controller: controller.noteContentTEController,
+              hintText: 'Enter your Note ',
+              hintTextColor: Colors.grey,
+            ),
+          ],
+        ),
+        actions: [
+          InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Container(
+              height: 40,
+              width: 120.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                color: Color(0xFFFFFFFF),
+              ),
+              child: Center(
+                child: AppText(
+                  text: 'Cancel',
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Container(
+              height: 40.h,
+              width: 80.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.r),
+                color: Color(0xFFFFFFFF),
+              ),
+              child: Center(
+                child: AppText(
+                  text: "Ok",
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Container buildBannerSection(HomeScreenController controller) {
     return Container(
-              height: 150.h,
-              width: double.maxFinite,
-              decoration: BoxDecoration(  color: Color(0xffebe9fa),),
+      height: 150.h,
+      width: double.maxFinite,
+      decoration: BoxDecoration(color: Color(0xffebe9fa)),
 
-              child: Stack(
-                alignment: Alignment.bottomCenter,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Positioned(
+            bottom: 0,
+            top: 0,
+            child: Container(
+              width: 280.w,
+              height: 50.h,
+
+              decoration: BoxDecoration(
+                color: Color(0xFFE0DAFF),
+                borderRadius: BorderRadius.circular(22.r),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            top: 0,
+            child: Container(
+              width: 320.w,
+              height: 60.h,
+              decoration: BoxDecoration(
+                color: Color(0xFFB2A5FF),
+                borderRadius: BorderRadius.circular(22.r),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            top: 0,
+            child: Container(
+              width: 350.w,
+              height: 70.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(22.r),
+                gradient: LinearGradient(
+                  colors: [Color(0xFF6D4EFF), Color(0xFF836AFA)],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Positioned(
-                    bottom: 0,
-                    top: 0,
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w),
                     child: Container(
-                      width: 280.w,
-                      height: 50,
-
+                      height: 71.h,
+                      width: 170.w,
                       decoration: BoxDecoration(
-                        color: Color(0xFFE0DAFF),
-                        borderRadius: BorderRadius.circular(22.r),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    top: 0,
-                    child: Container(
-                      width: 320.w,
-                      height: 60.h,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFB2A5FF),
-                        borderRadius: BorderRadius.circular(22.r),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 20,
-                    top: 0,
-                    child: Container(
-                      width: 350.w,
-                      height: 70.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(22.r),
+                        borderRadius: BorderRadius.circular(20.r),
                         gradient: LinearGradient(
-                          colors: [Color(0xFF6D4EFF), Color(0xFF836AFA)],
+                          colors: [Color(0xff9988F0), Color(0xff8671F6)],
+                          begin: Alignment(-0.5, -1), // custom start
+                          end: Alignment(0.5, 1),
                         ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 20.w,),
-                            child: Container(
-                              height: 71.h,
-                              width: 150.w,
-                              decoration: BoxDecoration(
-
-                                borderRadius: BorderRadius.circular(20.r),
-                                gradient: LinearGradient(colors:
-                                [
-
-                                  Color(0xff9988F0),
-                                  Color(0xff8671F6),
-                                ], begin: Alignment(-0.5, -1), // custom start
-                                end: Alignment(0.5, 1),
-
-                              )
-
-                              ),
-                              child: Center(
-                                child: AppText(text: controller.currentTime,fontSize: 24.sp,color: Colors.white,fontWeight: FontWeight.w700,),
-                              ),
-                            ),
-                          ),
-
-
-                        ],
+                      child: Center(
+                        child: AppText(
+                          text: controller.currentTime,
+                          fontSize: 24.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-
-
                   ),
                 ],
               ),
-            );
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
