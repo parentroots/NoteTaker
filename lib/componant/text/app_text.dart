@@ -45,6 +45,11 @@ class AppText extends StatelessWidget {
         bottom: bottom.h,
       ),
       child: Text(
+        style: TextStyle(
+          fontWeight: fontWeight,
+          color: color,
+          fontSize: fontSize
+        ),
         textAlign: textAlign,
         text,
         maxLines: maxLines,

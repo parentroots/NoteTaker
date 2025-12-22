@@ -10,6 +10,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
+  final Color hintTextColor;
 
   const AppTextField({
     super.key,
@@ -19,7 +20,7 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
-    this.validator,
+    this.validator, this.hintTextColor=AppColors.blackColor,
   });
 
   @override
@@ -40,7 +41,7 @@ class AppTextField extends StatelessWidget {
         fillColor: Colors.white,
         filled: true,
         hintStyle: TextStyle(
-          color: AppColors.blackColor,
+          color:hintTextColor,
           fontSize: 20.sp,
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),

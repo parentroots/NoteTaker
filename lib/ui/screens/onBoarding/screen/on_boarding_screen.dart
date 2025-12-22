@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:note_taker/componant/button/app_button.dart';
 import 'package:note_taker/componant/text/app_text.dart';
-import 'package:note_taker/componant/text_field.dart';
+import 'package:note_taker/componant/text_field/text_field.dart';
+import 'package:note_taker/core/appRoute/app_routes.dart';
 import 'package:note_taker/ui/screens/onBoarding/controller/on_boarding_screen_controller.dart';
 import 'package:note_taker/utils/constants/app_colors.dart';
 
@@ -71,7 +72,7 @@ class OnBoardingScreen extends StatelessWidget {
                       SizedBox(height: 20.h),
 
                       Text(
-                        'Well Come Buddy 💖 !',
+                        'WellCome Buddy !',
                         style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w600,
@@ -99,6 +100,7 @@ class OnBoardingScreen extends StatelessWidget {
                             SizedBox(
                               width: 0.9.sw,
                               child: AppTextField(
+                                hintTextColor: Colors.black54,
                                 controller: controller.nameTEController,
                                 hintText: 'Enter your name',
                               ),
@@ -109,14 +111,29 @@ class OnBoardingScreen extends StatelessWidget {
                             SizedBox(
                               height: 55.h,
                               width: double.maxFinite,
-                              child: ElevatedButton(onPressed: (){}, child: Text('Enter',style: TextStyle(fontSize: 24.sp,color: Colors.black),),style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.whiteColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusGeometry.circular(12.r)
-                                )
+                              child: ElevatedButton(
+                                onPressed: () {
 
-                              ),),
-                            )
+                                  Get.toNamed(AppRoute.homeScreen);
+
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.whiteColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      12.r,
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Enter',
+                                  style: TextStyle(
+                                    fontSize: 24.sp,
+                                    color: Colors.black45,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
