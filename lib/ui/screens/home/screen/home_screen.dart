@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:note_taker/componant/text/app_text.dart';
 import 'package:note_taker/componant/text_field/text_field.dart';
+import 'package:note_taker/core/appRoute/app_routes.dart';
 import 'package:note_taker/ui/screens/home/controller/home_screen_controller.dart';
+import 'package:note_taker/ui/screens/note_list/screen/note_list_screen.dart';
 import 'package:note_taker/ui/screens/widget/home_app_bar/home_app_bar.dart';
 import '../widget/note_category_widget.dart';
 
@@ -13,6 +15,10 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+String? selectedCategory;
+
+List<String> categories = ["Personal", "Work", "Study", "Others"];
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -55,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title1: 'Personal',
                     title2: 'Academic',
                     onTapItem1: () {
-                      print('Personal clicked');
+                     Get.toNamed(AppRoute.noteListScreen);
                     },
                     onTapItem2: () {
                       print('Academic clicked');
@@ -91,16 +97,43 @@ class _HomeScreenState extends State<HomeScreen> {
     return Get.dialog(
       AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: AppText(text: 'App Note', fontSize: 18.sp),
+        title: AppText(text: 'Add a note', fontSize: 18.sp),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+
+            DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+
+                fillColor: Colors.white,
+                filled: true,
+                labelText: "Select Category",
+                border: OutlineInputBorder(),
+              ),
+              value: selectedCategory,
+              items: categories.map((category) {
+                return DropdownMenuItem<String>(
+                  value: category,
+                  child: Text(category,style: TextStyle(
+                    fontSize: 12.sp,
+                  ),),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedCategory = value;
+                });
+              },
+            ),
+
+
+            SizedBox(height: 14.h,),
+
             SizedBox(
               height: 45.h,
               child: AppTextField(
                 fontSize: 14.sp,
                 hintSize: 14.sp,
-
                 controller: controller.noteTitleTEController,
                 hintText: 'Enter  Note title',
                 hintTextColor: Colors.grey,

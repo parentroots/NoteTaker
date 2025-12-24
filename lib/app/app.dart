@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:note_taker/naimul/screen/dietary_restrictions_screen.dart';
 import 'package:note_taker/ui/screens/splash/screen/splash_screen.dart';
 
 import '../core/appRoute/app_routes.dart';
@@ -17,10 +18,10 @@ class NoteTaker extends StatelessWidget {
    debugShowCheckedModeBanner:false,
    defaultTransition: Transition.fadeIn,
    transitionDuration: const Duration(milliseconds: 200),
-    initialRoute:AppRoute.splashScreen,
+    initialRoute:AppRoute.dietrayRestrictionScreen,
     navigatorKey: Get.key,
     getPages:AppRoute.routes,
-    home: SplashScreen(),
+    home: DietaryRestrictionsScreen(),
     )
 
    );
