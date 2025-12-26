@@ -128,7 +128,7 @@ class OnBoardingScreen extends StatelessWidget {
                                 child: Text(
                                   'Enter',
                                   style: TextStyle(
-                                    fontSize: 24.sp,
+                                    fontSize: 20.sp,
                                     color: Colors.black45,
                                   ),
                                 ),

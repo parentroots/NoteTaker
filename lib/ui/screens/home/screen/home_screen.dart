@@ -61,10 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     title1: 'Personal',
                     title2: 'Academic',
                     onTapItem1: () {
-                     Get.toNamed(AppRoute.noteListScreen);
+                     Get.toNamed(AppRoute.noteListScreen,parameters:{
+                       'category':'Personal'
+                     });
                     },
                     onTapItem2: () {
-                      print('Academic clicked');
+                      Get.toNamed(AppRoute.noteListScreen,parameters:{
+                        'category':'Academic'
+                      });
+
                     },
                     noteCount1: '10',
                     noteCount2: '50',
@@ -76,10 +81,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     title1: 'Work',
                     title2: 'Others',
                     onTapItem1: () {
-                      print('Work clicked');
+
+                      Get.toNamed(AppRoute.noteListScreen,parameters: {
+
+                        'category':'Work'
+                      });
+
+
                     },
                     onTapItem2: () {
-                      print('Others clicked');
+                      Get.toNamed(AppRoute.noteListScreen,parameters: {
+
+                        'category':'Others'
+                      });
+
                     },
                     noteCount1: '39',
                     noteCount2: '15',

@@ -3,7 +3,7 @@ import 'package:note_taker/ui/screens/home/screen/home_screen.dart';
 import 'package:note_taker/ui/screens/note_list/screen/note_list_screen.dart';
 import 'package:note_taker/ui/screens/onBoarding/screen/on_boarding_screen.dart';
 
-import '../../naimul/screen/dietary_restrictions_screen.dart';
+import '../../ui/screens/note_list/screen/single_note_view_screen.dart';
 import '../../ui/screens/splash/screen/splash_screen.dart';
 
 
@@ -15,7 +15,7 @@ class AppRoute {
   static const String onBoardingScreen = "/on_boarding_screen";
   static const String homeScreen = "/home_screen";
   static const String noteListScreen = "/note_list_screen";
-  static const String dietrayRestrictionScreen = "/DietaryRestrictionsScreen";
+  static const String singleNoteViewScreen = "/SingleNoteViewScreen";
 
   static List<GetPage> routes = [
     ///==================== Authentication  Routes ====================
@@ -24,7 +24,9 @@ class AppRoute {
     GetPage(name: onBoardingScreen, page: () => const OnBoardingScreen()),
     GetPage(name: homeScreen, page: () => const HomeScreen()),
     GetPage(name: noteListScreen, page: () => const NoteListScreen()),
-    GetPage(name: dietrayRestrictionScreen, page: () => const DietaryRestrictionsScreen()),
+    GetPage(name: singleNoteViewScreen, page: () => const SingleNoteViewScreen()),
+
+
 
 
 
